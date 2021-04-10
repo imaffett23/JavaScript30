@@ -41,8 +41,30 @@
 </style>
 
 <button></button>
-<script>
 
-</script>
+  <script>
+    const divs = document.querySelectorAll('div');
+    const button = document.querySelector('button');
+
+    function logText(e) {
+      console.log(this.classList.value);
+      e.stopPropagation(); //Stop the bubbling up!
+    }
+
+    //divs.forEach(div => div.addEventListener('click', logText)); //Will bubble up to all divs that the clicked div is enclosed in
+    divs.forEach(div => div.addEventListener('click', logText, {
+      //capture: true //Would capture and log it down (1,2,3 instead of bubbling up 3,2,1)
+      capture: false,
+      //once: true //can only run the click event listener function once then it won't work again 
+    }));
+
+    button.addEventListener('click', () => { //Only have the button click event once (online store purchase)
+      console.log('CLICK!!!');
+    }, {
+      once: true
+      });
+
+  </script>
+
 </body>
 </html>
